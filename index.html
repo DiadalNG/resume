@@ -65,6 +65,9 @@
         <p class="text-xl md:text-2xl text-sky-600 mt-2">
           Senior Cybersecurity Solutions Architect
         </p>
+        <p class="text-lg md:text-xl text-slate-600 mt-3 font-medium">
+          Specializing in: Fintech, Blockchain, E-commerce, & SaaS AI
+        </p>
         <div
           class="mt-4 flex justify-center items-center space-x-6 text-slate-600"
         >
@@ -129,13 +132,15 @@
             Professional Summary
           </h2>
           <p class="text-slate-600 leading-relaxed">
-            Highly accomplished Cybersecurity Solutions Architect with over a
-            decade of experience leading complex security initiatives across
-            Cloudflare, AWS, macOS, and Linux environments. Proven track record
-            in designing and implementing Zero Trust infrastructures, mitigating
-            advanced threats, and optimizing security operations. Deep expertise
-            in secure software development using Node.js, Deno, Laravel, Vue.js,
-            and TypeScript to deliver robust, scalable, and compliant solutions.
+            A highly accomplished Cybersecurity Architect with over a decade of
+            experience spearheading security for high-growth **Fintech,
+            Blockchain, E-commerce, and SaaS AI** companies. Proven expertise in
+            architecting Zero Trust environments, securing cloud-native
+            applications on Cloudflare and AWS, and leading secure software
+            development with Node.js, TypeScript, and Laravel. I translate deep
+            technical knowledge into strategic business value, consistently
+            delivering robust, compliant, and resilient solutions that protect
+            critical assets and enable innovation.
           </p>
           <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div class="kpi-card p-4 rounded-lg">
@@ -164,6 +169,33 @@
               <p class="text-3xl font-bold text-sky-600" id="kpi-cost">0%</p>
               <p class="text-sm text-slate-500 mt-1">
                 Bandwidth & Egress Cost Savings
+              </p>
+            </div>
+
+            <div class="kpi-card p-4 rounded-lg">
+              <p class="text-3xl font-bold text-blue-600" id="kpi-attacks">
+                0%
+              </p>
+              <p class="text-sm text-slate-500 mt-1">
+                Reduction in Wallet Attacks
+              </p>
+            </div>
+            <div class="kpi-card p-4 rounded-lg">
+              <p class="text-3xl font-bold text-blue-600" id="kpi-uptime">
+                0.00%
+              </p>
+              <p class="text-sm text-slate-500 mt-1">Uptime Secured (DDoS)</p>
+            </div>
+            <div class="kpi-card p-4 rounded-lg">
+              <p class="text-3xl font-bold text-blue-600" id="kpi-vuln">0%</p>
+              <p class="text-sm text-slate-500 mt-1">
+                DeFi Vulnerability Detection
+              </p>
+            </div>
+            <div class="kpi-card p-4 rounded-lg">
+              <p class="text-3xl font-bold text-blue-600" id="kpi-growth">0%</p>
+              <p class="text-sm text-slate-500 mt-1">
+                Business Growth Contributed
               </p>
             </div>
           </div>
@@ -201,6 +233,20 @@
             id="competency-nav"
             class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
           >
+            <button
+              data-target="fintech"
+              class="nav-item p-4 text-center rounded-lg shadow-sm bg-white hover:shadow-lg hover:bg-blue-700 hover:text-white transition-all duration-300"
+            >
+              <span class="text-2xl">💳</span>
+              <span class="block mt-2 font-semibold">Fintech & Blockchain</span>
+            </button>
+            <button
+              data-target="ecommerce"
+              class="nav-item p-4 text-center rounded-lg shadow-sm bg-white hover:shadow-lg hover:bg-blue-700 hover:text-white transition-all duration-300"
+            >
+              <span class="text-2xl">🛒</span>
+              <span class="block mt-2 font-semibold">E-commerce & SaaS AI</span>
+            </button>
             <button
               data-target="general"
               class="nav-item p-4 text-center rounded-lg shadow-sm bg-white hover:shadow-lg hover:bg-sky-500 hover:text-white transition-all duration-300"
@@ -245,6 +291,51 @@
 
     <script>
       const cvData = {
+        fintech: {
+          title: "Fintech & Blockchain Security",
+          intro:
+            "I specialize in securing high-value financial and decentralized applications. My expertise involves designing multi-layered security for blockchain wallets, hardening DeFi protocols against sophisticated attacks, and ensuring the integrity of tokenized asset platforms on networks like Ethereum.",
+          achievements: [
+            "Led the security redesign of a blockchain wallet, implementing advanced encryption and MFA, resulting in a 90% reduction in successful attacks on user wallets.",
+            "Developed a security framework for assessing DeFi protocols, reducing the average time to detect vulnerabilities by 60%.",
+            "Managed the secure deployment of a tokenized real estate platform, facilitating over $50M in property investments in its first year.",
+            "Achieved a 50x improvement in transaction throughput for IoT blockchain networks through optimized, secure architecture.",
+            "Designed and implemented secure smart contracts for access control, integrating with authentication mechanisms like MetaMask.",
+          ],
+          chart: {
+            type: "bar",
+            label: "Impact on Fintech & Blockchain Security (%)",
+            labels: [
+              "Wallet Attack Reduction",
+              "DeFi Vuln. Detection Speed",
+              "Throughput Improvement (x-factor)",
+            ],
+            data: [90, 60, 50],
+          },
+        },
+        ecommerce: {
+          title: "E-commerce & SaaS AI Security",
+          intro:
+            "I excel at protecting high-traffic e-commerce platforms and innovative SaaS AI solutions. My work focuses on ensuring 99.99%+ uptime during peak periods, securing sensitive customer data, protecting APIs, and integrating AI to proactively enhance threat detection and response.",
+          achievements: [
+            "Secured critical e-commerce platforms against DDoS threats using Cloudflare, ensuring 99.99% uptime during peak sales.",
+            "Led multidisciplinary teams to deliver major AI and cybersecurity projects, achieving all KPIs.",
+            "Defined and prioritized product features for SaaS AI solutions, resulting in a 30% improvement in security-related product functionality.",
+            "Contributed to the launch of three secure SaaS AI products, directly leading to a 10% increase in business growth.",
+            "Integrated AI with AWS security services, significantly reducing false positives and accelerating incident response times.",
+          ],
+          chart: {
+            type: "bar",
+            label: "E-commerce & SaaS AI Impact (%)",
+            labels: [
+              "Uptime Secured",
+              "Product Func. Improv.",
+              "Business Growth Contrib.",
+              "Incident Response Speed Improv.",
+            ],
+            data: [99.99, 30, 10, 40], // Assuming a 40% speed improvement for response
+          },
+        },
         general: {
           title: "General Cybersecurity Leadership & Incident Response",
           intro:
@@ -293,7 +384,8 @@
           },
         },
         os: {
-          title: "OS Security & Installation (macOS, Linux & Windows)",
+          title:
+            "Operating System & Endpoint Security (macOS, Linux & Windows)",
           intro:
             "I possess deep, enterprise-level expertise in hardening, managing, and securing both macOS, Linux and Windows environments. This includes proactive vulnerability hunting, ensuring fleet-wide compliance, and integrating OS-level security into the broader IT ecosystem for seamless, robust protection at scale.",
           achievements: [
@@ -520,7 +612,7 @@
 
       document.addEventListener("DOMContentLoaded", () => {
         const navButtons = document.querySelectorAll("#competency-nav button");
-        const defaultDomain = "general";
+        const defaultDomain = "fintech";
 
         navButtons.forEach((button) => {
           button.addEventListener("click", () => {
@@ -543,6 +635,17 @@
         animateValue(document.getElementById("kpi-downtime"), 0, 52, 1500);
         animateValue(document.getElementById("kpi-soc"), 0, 43, 1500);
         animateValue(document.getElementById("kpi-cost"), 0, 75, 1500);
+
+        animateValue(document.getElementById("kpi-attacks"), 0, 90, 1500);
+        animateValue(
+          document.getElementById("kpi-uptime"),
+          0,
+          99.99,
+          1500,
+          true
+        );
+        animateValue(document.getElementById("kpi-vuln"), 0, 60, 1500);
+        animateValue(document.getElementById("kpi-growth"), 0, 10, 1500);
       });
     </script>
   </body>
