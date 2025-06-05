@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive CV | Senior Cybersecurity Solutions Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Chosen Palette: Slate & Sky -->
+    <!-- Application Structure Plan: A non-linear, interactive dashboard layout. The user is greeted with a high-impact hero section featuring key quantifiable achievements. A central navigation hub of 'competency cards' allows users to dynamically filter the main content area. Clicking a card (e.g., 'Cloud & Infra') updates the 'Experience & Impact' section with domain-specific summaries, quantified achievements, and a relevant visualization. A timeline chart provides an at-a-glance view of the expert's overlapping experience. This structure was chosen to make a complex, multi-domain profile easily digestible for time-constrained recruiters, encouraging exploration and highlighting strategic impact over a simple chronological history. -->
+    <!-- Visualization & Content Choices: 
+        - Hero Stats: Goal: Inform/Impress -> Dynamic number counters (JS) for immediate impact.
+        - Competency Cards: Goal: Organize/Navigate -> Clickable cards (JS events) to filter content. Justification: Intuitive, modern navigation pattern for SPAs.
+        - Experience Timeline: Goal: Organize/Compare -> Horizontal Bar Chart (Chart.js) to visually represent overlapping years of experience. Justification: Solves the core challenge of communicating the depth and breadth of concurrent expertise.
+        - Achievement Metrics: Goal: Compare/Inform -> Dynamic Bar/Doughnut Charts (Chart.js) for each competency. Justification: Visualizes key metrics from the report (e.g., incident reduction), making them more memorable and impactful than text alone.
+        - All visualizations are rendered on Canvas via Chart.js, adhering to the no-SVG constraint. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc; /* slate-50 */
+        color: #334155; /* slate-700 */
+      }
+      .active-nav {
+        background-color: #0284c7; /* sky-600 */
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+      }
+      .nav-item {
+        transition: all 0.2s ease-in-out;
+      }
+      .kpi-card {
+        background-color: white;
+        border-left: 4px solid #0ea5e9; /* sky-500 */
+      }
+      .chart-container {
+        position: relative;
+        margin: auto;
+        height: 280px;
+        width: 100%;
+        max-width: 500px;
+      }
+      .content-section {
+        display: none;
+      }
+      .content-section.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+      <header class="text-center mb-10">
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-800">John Doe</h1>
+        <p class="text-xl md:text-2xl text-sky-600 mt-2">
+          Senior Cybersecurity Solutions Architect
+        </p>
+        <div
+          class="mt-4 flex justify-center items-center space-x-6 text-slate-600"
+        >
+          <span class="flex items-center"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M14.243 5.757a6 6 0 10-8.486 8.486 6 6 0 008.486-8.486zM12.828 7.172a4 4 0 10-5.656 5.656 4 4 0 005.656-5.656z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            San Francisco, CA</span
+          >
+          <a
+            href="mailto:john.doe@email.com"
+            class="flex items-center hover:text-sky-600"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+              />
+              <path
+                d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+              />
+            </svg>
+            john.doe@email.com</a
+          >
+          <a href="#" class="flex items-center hover:text-sky-600"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path
+                fill-rule="evenodd"
+                d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            LinkedIn Profile</a
+          >
+        </div>
+      </header>
+
+      <main>
+        <section id="summary" class="bg-white p-6 rounded-xl shadow-md mb-10">
+          <h2 class="text-2xl font-bold text-slate-800 mb-4">
+            Professional Summary
+          </h2>
+          <p class="text-slate-600 leading-relaxed">
+            Highly accomplished Cybersecurity Solutions Architect with over a
+            decade of experience leading complex security initiatives across
+            Cloudflare, AWS, macOS, and Linux environments. Proven track record
+            in designing and implementing Zero Trust infrastructures, mitigating
+            advanced threats, and optimizing security operations. Deep expertise
+            in secure software development using Node.js, Deno, Laravel, Vue.js,
+            and TypeScript to deliver robust, scalable, and compliant solutions.
+          </p>
+          <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="kpi-card p-4 rounded-lg">
+              <p class="text-3xl font-bold text-sky-600" id="kpi-incidents">
+                0%
+              </p>
+              <p class="text-sm text-slate-500 mt-1">
+                Reduction in Security Incidents
+              </p>
+            </div>
+            <div class="kpi-card p-4 rounded-lg">
+              <p class="text-3xl font-bold text-sky-600" id="kpi-downtime">
+                0%
+              </p>
+              <p class="text-sm text-slate-500 mt-1">
+                Reduction in System Downtime
+              </p>
+            </div>
+            <div class="kpi-card p-4 rounded-lg">
+              <p class="text-3xl font-bold text-sky-600" id="kpi-soc">0%</p>
+              <p class="text-sm text-slate-500 mt-1">
+                Improvement in SOC Efficiency
+              </p>
+            </div>
+            <div class="kpi-card p-4 rounded-lg">
+              <p class="text-3xl font-bold text-sky-600" id="kpi-cost">0%</p>
+              <p class="text-sm text-slate-500 mt-1">
+                Bandwidth & Egress Cost Savings
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="experience-timeline"
+          class="bg-white p-6 rounded-xl shadow-md mb-10"
+        >
+          <h2 class="text-2xl font-bold text-slate-800 mb-4">
+            Experience Timeline
+          </h2>
+          <p class="text-slate-600 mb-4">
+            This timeline provides an at-a-glance overview of my extensive and
+            often overlapping experience across key technology and security
+            domains, showcasing a consistent and deep engagement with critical
+            platforms over the last decade.
+          </p>
+          <div class="chart-container h-80">
+            <canvas id="timelineChart"></canvas>
+          </div>
+        </section>
+
+        <section id="core-competencies" class="mb-10">
+          <h2 class="text-2xl font-bold text-slate-800 mb-4 text-center">
+            Core Competencies &amp; Impact
+          </h2>
+          <p class="text-slate-600 mb-6 text-center max-w-3xl mx-auto">
+            Select a competency to explore detailed expertise and quantified
+            achievements. Each section highlights my ability to not only
+            implement technical solutions but also to drive strategic value,
+            reduce risk, and improve operational efficiency.
+          </p>
+          <nav
+            id="competency-nav"
+            class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
+          >
+            <button
+              data-target="general"
+              class="nav-item p-4 text-center rounded-lg shadow-sm bg-white hover:shadow-lg hover:bg-sky-500 hover:text-white transition-all duration-300"
+            >
+              <span class="text-2xl">🛡️</span>
+              <span class="block mt-2 font-semibold">General Cyber</span>
+            </button>
+            <button
+              data-target="cloud"
+              class="nav-item p-4 text-center rounded-lg shadow-sm bg-white hover:shadow-lg hover:bg-sky-500 hover:text-white transition-all duration-300"
+            >
+              <span class="text-2xl">☁️</span>
+              <span class="block mt-2 font-semibold">Cloud & Infra</span>
+            </button>
+            <button
+              data-target="os"
+              class="nav-item p-4 text-center rounded-lg shadow-sm bg-white hover:shadow-lg hover:bg-sky-500 hover:text-white transition-all duration-300"
+            >
+              <span class="text-2xl">💻</span>
+              <span class="block mt-2 font-semibold">OS Security</span>
+            </button>
+            <button
+              data-target="dev"
+              class="nav-item p-4 text-center rounded-lg shadow-sm bg-white hover:shadow-lg hover:bg-sky-500 hover:text-white transition-all duration-300"
+            >
+              <span class="text-2xl">⚙️</span>
+              <span class="block mt-2 font-semibold">Secure Dev</span>
+            </button>
+          </nav>
+
+          <div
+            id="competency-content"
+            class="bg-white p-6 rounded-xl shadow-md"
+          >
+            <!-- Dynamic content will be injected here -->
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const cvData = {
+        general: {
+          title: "General Cybersecurity Leadership & Incident Response",
+          intro:
+            "With 10 years in general cybersecurity, my experience has evolved from hands-on technical execution to strategic leadership. I focus on building proactive security programs, leading incident response with a data-driven approach, and aligning security posture with business objectives to minimize risk and ensure resilience.",
+          achievements: [
+            "Led incident response to major ransomware attacks, ensuring zero data loss and reducing downtime by 52%.",
+            "Instigated a comprehensive security policy, resulting in a 75% decrease in security breaches over 12 months.",
+            "Managed and configured security infrastructure for enterprise networks supporting 5,000+ users.",
+            "Redesigned incident response protocols, decreasing average resolution time from 47 to 12 minutes.",
+            "Increased security visibility by 35% by creating and implementing a centralized SIEM system.",
+          ],
+          chart: {
+            type: "bar",
+            label: "Metric Improvement (%)",
+            labels: [
+              "Breach Reduction",
+              "Downtime Reduction",
+              "Visibility Increase",
+              "MTTR Improvement",
+            ],
+            data: [75, 52, 35, 74], // 47->12 is ~74% reduction
+          },
+        },
+        cloud: {
+          title:
+            "Cloud & Infrastructure Security (Cloudflare, AWS, Zero Trust)",
+          intro:
+            "My expertise in cloud security is centered on architecting resilient, scalable, and cost-effective environments. I specialize in leveraging the full potential of platforms like Cloudflare and AWS, and transforming security models by implementing comprehensive Zero Trust principles from the ground up.",
+          achievements: [
+            "Implemented Zero Trust Architecture, resulting in a 43% reduction in cyber incidents and 43% improved SOC efficiency.",
+            "Mitigated large-scale DDoS attacks (up to 388 Tbps) using Cloudflare, ensuring 99.99% uptime.",
+            "Blocked over 384 million cyber threats in 30 days, achieving 75% bandwidth and data egress cost savings.",
+            "Designed secure cloud infrastructures for 50+ AWS projects, reducing security incidents by 40%.",
+            "Automated security controls across 200+ AWS accounts, reducing MTTR for findings from 72 hours to minutes.",
+          ],
+          chart: {
+            type: "bar",
+            label: "Business Impact (%)",
+            labels: [
+              "Incident Reduction",
+              "SOC Efficiency",
+              "Cost Savings",
+              "DDoS Uptime",
+            ],
+            data: [43, 43, 75, 99.99],
+          },
+        },
+        os: {
+          title: "OS Security (macOS & Linux)",
+          intro:
+            "I possess deep, enterprise-level expertise in hardening, managing, and securing both macOS and Linux environments. This includes proactive vulnerability hunting, ensuring fleet-wide compliance, and integrating OS-level security into the broader IT ecosystem for seamless, robust protection at scale.",
+          achievements: [
+            "Hardened 100,000+ Linux servers for a major financial firm, achieving 99.9% uptime.",
+            "Achieved 'Gold Winner' in 2025 Cybersecurity Excellence Awards for pioneering agentless Linux EDR.",
+            "Integrated macOS management solutions, reducing security-related help desk tickets by 70%.",
+            "Identified and reported multiple zero-day macOS vulnerabilities, enhancing security for the Apple ecosystem.",
+            "Achieved 95% patch compliance rate across the enterprise macOS fleet through automated patch management.",
+          ],
+          chart: {
+            type: "doughnut",
+            label: "Key OS Security Achievements",
+            labels: [
+              "Linux Hardening (Servers)",
+              "Helpdesk Reduction (macOS)",
+              "Patch Compliance (macOS)",
+            ],
+            data: [100000, 70, 95],
+          },
+        },
+        dev: {
+          title:
+            "Secure Software Development (Node.js, Deno, Laravel, Vue, TS)",
+          intro:
+            "As a DevSecOps advocate, I integrate security into every phase of the software development lifecycle. With 8 years of full-stack experience, I build secure applications by design, automate security testing in CI/CD pipelines, and develop custom tools to proactively identify and mitigate vulnerabilities before they reach production.",
+          achievements: [
+            "Automated Laravel security testing in CI/CD, detecting and remediating 90% of SQL injection & XSS vulnerabilities pre-deployment.",
+            "Developed secure Node.js APIs, reducing critical vulnerabilities by 30% through strict input validation.",
+            "Designed real-time security dashboards with Vue.js, improving threat intelligence visualization by 40%.",
+            "Automated cloud infrastructure provisioning using TypeScript (IaC), reducing misconfigurations by over 50%.",
+            "Built secure, sandboxed environments with Deno, preventing arbitrary code execution from untrusted user scripts.",
+          ],
+          chart: {
+            type: "bar",
+            label: "DevSecOps Impact",
+            labels: [
+              "Pre-deploy Vuln. Fix",
+              "API Vuln. Reduction",
+              "Threat Viz. Improv.",
+              "Infra Misconfig. Reduction",
+            ],
+            data: [90, 30, 40, 50],
+          },
+        },
+      };
+
+      let currentChart = null;
+
+      function animateValue(obj, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp;
+          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+          obj.innerHTML = Math.floor(progress * (end - start) + start) + "%";
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          }
+        };
+        window.requestAnimationFrame(step);
+      }
+
+      function renderContent(domain) {
+        const data = cvData[domain];
+        if (!data) return;
+
+        const contentContainer = document.getElementById("competency-content");
+
+        let achievementsHtml = data.achievements
+          .map(
+            (item) => `
+                <li class="flex items-start">
+                    <span class="text-sky-500 mr-3 mt-1">✓</span>
+                    <span>${item}</span>
+                </li>
+            `
+          )
+          .join("");
+
+        contentContainer.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3">${data.title}</h3>
+                        <p class="text-slate-600 leading-relaxed mb-4">${data.intro}</p>
+                        <h4 class="font-semibold text-slate-700 mb-3">Key Achievements:</h4>
+                        <ul class="space-y-2 text-slate-600">
+                            ${achievementsHtml}
+                        </ul>
+                    </div>
+                    <div>
+                         <h4 class="font-semibold text-slate-700 mb-3 text-center">Impact Visualization</h4>
+                        <div class="chart-container">
+                            <canvas id="competencyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+        renderChart(data.chart);
+      }
+
+      function renderChart(chartData) {
+        const ctx = document.getElementById("competencyChart").getContext("2d");
+        if (currentChart) {
+          currentChart.destroy();
+        }
+
+        const chartConfig = {
+          type: chartData.type,
+          data: {
+            labels: chartData.labels,
+            datasets: [
+              {
+                label: chartData.label,
+                data: chartData.data,
+                backgroundColor: [
+                  "rgba(2, 132, 199, 0.6)", // sky-600
+                  "rgba(14, 165, 233, 0.6)", // sky-500
+                  "rgba(56, 189, 248, 0.6)", // sky-400
+                  "rgba(125, 211, 252, 0.6)", // sky-300
+                ],
+                borderColor: [
+                  "rgba(2, 132, 199, 1)",
+                  "rgba(14, 165, 233, 1)",
+                  "rgba(56, 189, 248, 1)",
+                  "rgba(125, 211, 252, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: chartData.type === "doughnut",
+                position: "bottom",
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    let label = context.dataset.label || "";
+                    if (label) {
+                      label += ": ";
+                    }
+                    if (
+                      context.parsed.y !== null &&
+                      chartData.type !== "doughnut"
+                    ) {
+                      label += context.parsed.y + "%";
+                    } else {
+                      label = context.label + ": " + context.parsed;
+                    }
+                    return label;
+                  },
+                },
+              },
+            },
+            scales:
+              chartData.type === "bar"
+                ? {
+                    y: {
+                      beginAtZero: true,
+                      ticks: {
+                        callback: function (value) {
+                          return value + "%";
+                        },
+                      },
+                    },
+                  }
+                : {},
+          },
+        };
+
+        currentChart = new Chart(ctx, chartConfig);
+      }
+
+      function renderTimelineChart() {
+        const ctx = document.getElementById("timelineChart").getContext("2d");
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: [
+              "Linux Security",
+              "macOS Security",
+              "Cloudflare",
+              "General Cyber",
+              "Secure Dev",
+              "Amazon AWS",
+              "Zero Trust",
+            ],
+            datasets: [
+              {
+                label: "Years of Experience",
+                data: [12, 10, 10, 10, 8, 5, 5],
+                backgroundColor: "rgba(14, 165, 233, 0.6)",
+                borderColor: "rgba(14, 165, 233, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            indexAxis: "y",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              x: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "Years",
+                },
+              },
+            },
+          },
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const navButtons = document.querySelectorAll("#competency-nav button");
+        const defaultDomain = "general";
+
+        navButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            navButtons.forEach((btn) => btn.classList.remove("active-nav"));
+            button.classList.add("active-nav");
+            const domain = button.dataset.target;
+            renderContent(domain);
+          });
+        });
+
+        // Initial load
+        const initialButton = document.querySelector(
+          `#competency-nav button[data-target="${defaultDomain}"]`
+        );
+        initialButton.classList.add("active-nav");
+        renderContent(defaultDomain);
+        renderTimelineChart();
+
+        animateValue(document.getElementById("kpi-incidents"), 0, 43, 1500);
+        animateValue(document.getElementById("kpi-downtime"), 0, 52, 1500);
+        animateValue(document.getElementById("kpi-soc"), 0, 43, 1500);
+        animateValue(document.getElementById("kpi-cost"), 0, 75, 1500);
+      });
+    </script>
+  </body>
+</html>
